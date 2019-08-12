@@ -5,7 +5,9 @@ class BaseTool(Toolbox):
 
     def __init__(self, workspace):
         Toolbox.__init__(self, workspace)
-        self.directionMap = np.array([[1,2,3],[8,0,4],[7,6,5]])
+        self.dirMap = np.array([[1,2,3],
+                                [8,0,4],
+                                [7,6,5]])
 
     def DetectSink(self):
         if self.GetAlt() < self.GetAlt(self.workArea[0]):
@@ -26,11 +28,12 @@ class BaseTool(Toolbox):
         # |7|6|5|
 
         if self.GetAlt(self.workArea[0]) < self.GetAlt():
-            i = self.workPoint[0] - self.workArea[0][0] + 1
-            j = self.workPoint[1] - self.workArea[0][1] + 1
-            self.workspace.flowDirection[self.workPoint[0],self.workPoint[1]] = self.directionMap[i,j]
+            dx = self.workArea[0][0] - self.workPoint[0] + 1
+            dy = self.workArea[0][1] - self.workPoint[1] + 1
+            self.workspace.fd_matrix[self.workPoint[0],
+                                     self.workPoint[1]] = self.dirMap[dx,dy]
         else:
-            self.workspace.flowDirection[self.workPoint] = 0
+            self.workspace.fd_matrix[self.workPoint] = 0
 
     def CountInputs(self):
 

@@ -1,4 +1,4 @@
-from features import *
+import numpy as np
 
 class Workspace:
 
@@ -11,8 +11,12 @@ class Workspace:
         self.xMax = None
         self.width = None
         self.height = None
-        self.peaks = None
+
         self.heightmap = None
+        self.fd_matrix = None
+
+        self.peaks = None
+        self.sinks = None
 
         if height == 0:
             self.height = heightmap.shape[0] - self.yMin
@@ -30,6 +34,7 @@ class Workspace:
 
         self.heightmap = heightmap[self.xMin:self.xMax,
                                    self.yMin:self.yMax]
+        self.fd_matrix = np.empty(self.heightmap.shape, dtype=int)
 
     def GetInitialPoint(self):
         return [self.yMin, self.xMin]

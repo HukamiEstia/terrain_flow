@@ -1,5 +1,6 @@
 import numpy as np
 from .featureLayer import FeatureLayer
+import plotly.graph_objects as go
 
 class Peak():
 

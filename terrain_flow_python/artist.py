@@ -16,8 +16,11 @@ class Artist():
     def DisplayWorkspace(self):
 
         drawnHeightmap = dataUtils.draw_heightmap(self.workspace.heightmap)
-        drawnPeaks = dataUtils.draw_peaks(self.workspace.peaks)
-        data = [drawnHeightmap, drawnPeaks]
+        drawnPeaks = self.workspace.peaks.Draw()
+        drawnSinks = self.workspace.sinks.Draw()
+        data = [drawnHeightmap,
+                drawnPeaks,
+                drawnSinks]
 
         dataUtils.display_map(data)
         
@@ -35,11 +38,17 @@ class Artist():
 
     def FindSinks(self):
 
-        sinks = []
+        sinks = features.Sinks(*self.workspace.GetMapDimensions())
 
         while self.baseTool.NextPoint():
             if self.baseTool.DetectSink():
                 location = self.baseTool.GetWorkPoint()
                 altitude = self.workspace.MeasureAltitude(location)
-                sinks.append({"location": location,
-                              "altitude": altitude})
+                sinks.AddSink(location, altitude)
+
+        self.workspace.sinks = sinks
+
+    def ComputeFD_Matrix(self):
+        
+        while self.baseTool.NextPoint():
+            self.baseTool.AssignDirection()

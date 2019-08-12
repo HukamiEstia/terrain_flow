@@ -6,5 +6,5 @@ if __name__ == '__main__':
                     initialPoint = (600, 600),
                     height = 300, width = 300)
     
-    artist.FindPeaks()
-    print(len(artist.workspace.peaks))
+    artist.ComputeFD_Matrix()
+    print(artist.workspace.fd_matrix[295:, 295:])
