@@ -32,8 +32,8 @@ class Toolbox:
             for i in range(3):
                 for j in range(3):
                     if ((i,j)!=(1,1)
-                    and 0 <= self.workPoint[0]-1+i < self.workspace.yMax
-                    and 0 <= self.workPoint[1]-1+j < self.workspace.xMax):
+                    and 0 <= self.workPoint[0]-1+i < self.workspace.height
+                    and 0 <= self.workPoint[1]-1+j < self.workspace.width):
                         self.workArea.append((self.workPoint[0]-1+i,self.workPoint[1]-1+j))
             self.workArea.sort(key=lambda x:self.GetAlt(x))
 
@@ -47,17 +47,17 @@ class Toolbox:
 
     def NextPoint(self):
         if self.workPoint == []:
-            self.workPoint = [self.workspace.yMin, self.workspace.xMin]
+            self.workPoint = [0, 0]
             self.UpdateWorkArea()
             return True
         else:
-            if self.workPoint[1] < self.workspace.xMax - 1:
+            if self.workPoint[1] < self.workspace.width - 1:
                 self.workPoint[1] += 1
                 self.UpdateWorkArea()
                 return True
-            elif self.workPoint[0] < self.workspace.yMax - 1:
+            elif self.workPoint[0] < self.workspace.height - 1:
                 self.workPoint[0] += 1
-                self.workPoint[1] = self.workspace.xMin
+                self.workPoint[1] = 0
                 self.UpdateWorkArea()
                 return True
             else:
