@@ -8,6 +8,10 @@ class BaseTool(Toolbox):
         self.dirMap = np.array([[1,2,3],
                                 [8,0,4],
                                 [7,6,5]])
+        self.inputMap = np.array([[5,6,7],
+                                  [4,0,8],
+                                  [3,2,1]])
+        
 
     def DetectSink(self):
         if self.GetAlt() < self.GetAlt(self.workArea[0]):
@@ -30,10 +34,9 @@ class BaseTool(Toolbox):
         if self.GetAlt(self.workArea[0]) < self.GetAlt():
             dx = self.workArea[0][0] - self.workPoint[0] + 1
             dy = self.workArea[0][1] - self.workPoint[1] + 1
-            self.workspace.fd_matrix[self.workPoint[0],
-                                     self.workPoint[1]] = self.dirMap[dx,dy]
+            self.workspace.fd_matrix[self.GetWorkPoint()] = self.dirMap[dx,dy]
         else:
-            self.workspace.fd_matrix[self.workPoint] = 0
+            self.workspace.fd_matrix[self.GetWorkPoint()] = 0
 
     def CountInputs(self):
 
@@ -41,9 +44,9 @@ class BaseTool(Toolbox):
         # |4|0|8|
         # |3|2|1|
 
-        inputDirections = np.array([[5,6,7][4,0,8][3,2,1]])
         for point in self.workArea:
-            i = self.workPoint[0] - point[0] + 1
-            j = self.workPoint[1] - point[1] + 1
-            if self.workspace.flowDirection[point] == inputDirections[i,j]:
-                self.workspace.drainageInput[self.workPoint] += 1
+            dx = self.workPoint[0] - point[0] + 1
+            dy = self.workPoint[1] - point[1] + 1
+            if self.workspace.fd_matrix[point] == self.inputMap[dx,dy]:
+                print('in_matrix workpoint', self.workspace.in_matrix[self.GetWorkPoint()])
+                self.workspace.in_matrix[self.GetWorkPoint()] += 1

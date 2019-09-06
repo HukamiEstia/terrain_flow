@@ -52,3 +52,8 @@ class Artist():
         
         while self.baseTool.NextPoint():
             self.baseTool.AssignDirection()
+
+    def ComputeIN_Matrix(self):
+
+        while self.baseTool.NextPoint():
+            self.baseTool.CountInputs()

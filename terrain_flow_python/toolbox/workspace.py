@@ -14,6 +14,7 @@ class Workspace:
 
         self.heightmap = None
         self.fd_matrix = None
+        self.in_matrix = None
 
         self.peaks = None
         self.sinks = None
@@ -35,6 +36,7 @@ class Workspace:
         self.heightmap = heightmap[self.xMin:self.xMax,
                                    self.yMin:self.yMax]
         self.fd_matrix = np.empty(self.heightmap.shape, dtype=int)
+        self.in_matrix = np.empty(self.heightmap.shape, dtype=int)
 
     def GetInitialPoint(self):
         return [self.yMin, self.xMin]

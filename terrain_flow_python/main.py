@@ -7,4 +7,5 @@ if __name__ == '__main__':
                     height = 300, width = 300)
     
     artist.ComputeFD_Matrix()
-    print(artist.workspace.fd_matrix[295:, 295:])
+    artist.ComputeIN_Matrix()
+    print(artist.workspace.in_matrix[295:, 295:])

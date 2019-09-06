@@ -11,7 +11,7 @@ class Toolbox:
         self.workspace = workspace
 
     def GetWorkPoint(self):
-        return (self.workPoint[0], self.workPoint[1])
+        return (*self.workPoint,)
 
     def ClearWorkPoint(self):
         self.workPoint = []
