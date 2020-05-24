@@ -49,11 +49,12 @@ class Artist():
         self.workspace.sinks = sinks
 
     def ComputeFD_Matrix(self):
+        """Compute the flow direction matrix of the whole map"""
         
         while self.baseTool.NextPoint():
             self.baseTool.AssignDirection()
 
     def ComputeIN_Matrix(self):
-
+        """Compute the flow input matrix of the whole map"""
         while self.baseTool.NextPoint():
             self.baseTool.CountInputs()

@@ -1,4 +1,8 @@
-"""pythons objects representing features"""
+"""
+base class for storing and manipulating geological features objects.
+Features are stored in arrays holding all the instances of a given type
+on a map.
+"""
 
 class FeatureLayer:
     """base feature class"""
@@ -7,7 +11,7 @@ class FeatureLayer:
         pass
 
     def Draw(self):
-        pass
+        """draw the features onto the sketch"""
 
     def GetAllPoints(self):
-        pass
+        """get all points"""

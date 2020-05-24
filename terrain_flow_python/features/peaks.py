@@ -1,8 +1,11 @@
+"""classes to store all the peaks"""
+
 import numpy as np
 from .featureLayer import FeatureLayer
 import plotly.graph_objects as go
 
 class Peak():
+    """store one peak's location and altitude"""
 
     __slots__ = ('location', 'altitude')
 
@@ -11,6 +14,7 @@ class Peak():
         self.altitude = altitude
 
 class Peaks(FeatureLayer):
+    """store all the peaks into a array"""
 
     __slots__ = (('height', 'width', 'peaks'))
 
@@ -23,20 +27,27 @@ class Peaks(FeatureLayer):
         return len(self.peaks)
 
     def AddPeak(self, location, altitude):
+        """
+        create a peak of given location and altitude
+        and append it to the list of peaks.
+        """
         self.peaks.append(Peak(location, altitude))
 
     def Draw(self):
-        x = []
-        y = []
-        z = []
+        """
+        plot the peaks with plotly
+        """
+        x_coord = []
+        y_coord = []
+        z_coord = []
         for peak in self.peaks:
-            x.append(30*peak.location[1])
-            y.append(30*peak.location[0])
-            z.append(peak.altitude)
-        data = go.Scatter3d(x=x, y=y, z=z,
+            x_coord.append(30*peak.location[1])
+            y_coord.append(30*peak.location[0])
+            z_coord.append(peak.altitude)
+        data = go.Scatter3d(x=x_coord, y=y_coord, z=z_coord,
                             mode='markers',
-                            marker={"size": [Z/50 for Z in z],
-                                    "color":z,
+                            marker={"size": [Z/50 for Z in z_coord],
+                                    "color":z_coord,
                                     "colorscale":'Reds',
                                     "opacity":1,
                                     "symbol":'diamond'})
